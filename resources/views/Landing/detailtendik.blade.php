@@ -33,11 +33,7 @@
                             <p>
                                 Email: {{ $datas->email }}
                             </p>
-                            <hr style="border: 2px solid black;">
-                            <h6 class="mb-0">Pendidikan</h6>
-                            <p class="card-text"><strong>S1:</strong> {{ $datas->s1 }}</p>
-                            <p class="card-text"><strong>S2:</strong> {{ $datas->s2 }}</p>
-                            <p class="card-text"><strong>S3:</strong> {{ $datas->s3 }}</p>
+                            
                             
                             
                         </div>

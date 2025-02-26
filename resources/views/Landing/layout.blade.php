@@ -16,6 +16,8 @@
     <link href="{{ asset('Landing/css/bootstrap-icons.css') }}" rel="stylesheet">
 
     <link href="{{ asset('Landing/css/templatemo-kind-heart-charity.css') }}" rel="stylesheet">
+
+
     <!--
 
 TemplateMo 581 Kind Heart Charity
@@ -180,6 +182,7 @@ https://templatemo.com/tm-581-kind-heart-charity
 
                             @endif
                             @endforeach
+                            <li><a class="dropdown-item" href="{{ route('landingpage.alumni') }}">Alumni</a></li>
 
                             <li><a class="dropdown-item" href="{{ route('landingpage.prestasi') }}">Prestasi</a></li>
                         </ul>
@@ -225,7 +228,9 @@ https://templatemo.com/tm-581-kind-heart-charity
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-12 mb-4">
-                    <img src=" {{ asset('gambar_website/' . $logouniv->file)}}" class="logo img-fluid" alt="">
+                    <a href="https://unmul.ac.id/" class="">
+                        <img src=" {{ asset('gambar_website/' . $logouniv->file)}}" class="logo img-fluid" alt="">
+                    </a>
 
                 </div>
 
@@ -233,24 +238,22 @@ https://templatemo.com/tm-581-kind-heart-charity
                     <h5 class="site-footer-title mb-3">Quick Links</h5>
 
                     <ul class="footer-menu">
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Universitas Mulawarnan</a></li>
+                        <li class="footer-menu-item"><a href="https://unmul.ac.id/" class="footer-menu-link">Universitas Mulawarnan</a></li>
 
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Fakultas Teknik</a></li>
+                        <li class="footer-menu-item"><a href="https://ft.unmul.ac.id/" class="footer-menu-link">Fakultas Teknik</a></li>
 
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Informatika</a></li>
+                        <li class="footer-menu-item"><a href="https://geologi.ft.unmul.ac.id/" class="footer-menu-link">Geologi</a></li>
 
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Geologi</a></li>
+                        <li class="footer-menu-item"><a href="https://che.ft.unmul.ac.id/" class="footer-menu-link">Teknik Kimia</a></li>
+                        <li class="footer-menu-item"><a href="https://s1tambang.ft.unmul.ac.id/" class="footer-menu-link">Pertambangan</a></li>
 
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Teknik Kimia</a></li>
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Pertambangan</a></li>
+                        <li class="footer-menu-item"><a href="https://ts.ft.unmul.ac.id/" class="footer-menu-link">Sipil</a></li>
 
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Sipil</a></li>
+                        <li class="footer-menu-item"><a href="https://ars.ft.unmul.ac.id/" class="footer-menu-link">Arsitektur</a></li>
 
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Arsitektur</a></li>
+                        <li class="footer-menu-item"><a href="https://tekling.ft.unmul.ac.id/" class="footer-menu-link">Teknik Lingkungan</a></li>
 
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Teknik Lingkungan</a></li>
-
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Insinyur</a></li>
+                        <li class="footer-menu-item"><a href="https://ppi.ft.unmul.ac.id/" class="footer-menu-link">Insinyur</a></li>
                     </ul>
                 </div>
 
@@ -286,8 +289,8 @@ https://templatemo.com/tm-581-kind-heart-charity
                 <div class="row">
 
                     <div class="col-lg-6 col-md-7 col-12">
-                        <p class="copyright-text mb-0">Copyright © 2036 <a href="#">Kind Heart</a> Charity Org.
-                            Design: <a href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+                        <p class="copyright-text mb-0">Copyright © 2025 Informatika
+                        </p>
                     </div>
 
                     <div class="col-lg-6 col-md-5 col-12 d-flex justify-content-center align-items-center mx-auto">
@@ -313,6 +316,9 @@ https://templatemo.com/tm-581-kind-heart-charity
     <script src="{{ asset('Landing/js/jquery.min.js') }}"></script>
     <script src="{{ asset('Landing/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('Landing/js/jquery.sticky.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
     <!--<script src="{{ asset('Landing/js/click-scroll.js') }}"></script>-->
     <script src="{{ asset('Landing/js/counter.js') }}"></script>
     <script src="{{ asset('Landing/js/custom.js') }}"></script>

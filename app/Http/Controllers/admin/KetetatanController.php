@@ -6,33 +6,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\alumni;
+use App\Models\ketetatan;
 use Illuminate\Support\Facades\Log;
-class AlumniController extends Controller
+
+class KetetatanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        //
-        if ($request->ajax()) {
-            $data = alumni::select([
+    //
+    if ($request->ajax()) {
+        $data = ketetatan::select([
                 'id',
-                'juml_masuk',
-                'juml_lulus',
+                'jml_snmptn',
+            'kuota_snmptn',
+            'jml_sbnptn',
+            'kuota_sbnptn',
+            'jml_mandiri',
+            'kuota_mandiri',
                 'tahun',
             ]);
-            return DataTables::of($data)
-                ->addColumn('action', function ($row) {
-                    return '<button class="btn btn-info btn-edit" data-id="' . $row->id . '" data-name="' . $row->nama . '">Edit</button>
+        return DataTables::of($data)
+        ->addColumn('action', function ($row) {
+            return '<button class="btn btn-info btn-edit" data-id="' . $row->id . '" data-name="' . $row->tahun . '">Edit</button>
                     <button class="btn btn-danger btn-delete" data-id="' . $row->id . '">Delete</button>';
-                })
-                ->rawColumns(['file', 'action'])
-                ->make(true);
-        }
-            return view('admin.alumni.index');
-       
+        })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+    return view('admin.ketetatan.index');
     }
 
     /**
@@ -48,25 +52,33 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
         try {
             // Validate input fields
             $request->validate([
                 'itemId' => 'nullable|integer|exists:alumnis,id',
                 'tahun' => 'required|integer',
-                'juml_masuk' => 'required|integer',
-                'juml_lulus' => 'required|integer',
+                'jml_snmptn' => 'required|integer',
+                'kuota_snmptn' => 'required|integer',
+                'jml_sbnptn' => 'required|integer',
+                'kuota_sbnptn' => 'required|integer',
+                'jml_mandiri' => 'required|integer',
+                'kuota_mandiri' => 'required|integer',
 
             ]);
 
 
             // Update or create the item in the database
-            $item = alumni::updateOrCreate(
+            $item = ketetatan::updateOrCreate(
                     ['id' => $request->itemId],
                     [
                     'tahun' => $request->tahun,
-                    'juml_masuk' => $request->juml_masuk,
-                    'juml_lulus' => $request->juml_lulus,
+                    'jml_snmptn' => $request->jml_snmptn,
+                    'kuota_snmptn' => $request->kuota_snmptn,
+                    'jml_sbnptn' => $request->jml_sbnptn,
+                    'kuota_sbnptn' => $request->kuota_sbnptn,
+                    'jml_mandiri' => $request->jml_mandiri,
+                    'kuota_mandiri' => $request->kuota_mandiri,
                     ]
                 );
 
@@ -109,8 +121,8 @@ class AlumniController extends Controller
     {
         //
         try {
-            $alumni = alumni::findOrFail($id);
-            $alumni->delete();
+            $ketetatan = ketetatan::findOrFail($id);
+            $ketetatan->delete();
 
             // Return success response
             return response()->json(['message' => 'Data deleted successfully']);

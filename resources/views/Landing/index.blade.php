@@ -77,7 +77,7 @@
 
             <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
                 <div class="featured-block d-flex justify-content-center align-items-center">
-                    <a href="donate.html" class="d-block">
+                    <a href="{{ route('landingpage.alumni') }}" class="d-block">
                         <img src="{{ asset('Landing/images/icons/diploma.png') }}" class="featured-block-image img-fluid" alt="">
 
                         <p class="featured-block-text"><strong>Alumni</strong> </p>
@@ -174,7 +174,7 @@
                             <h5 class="mb-3">Ketetatan</h5>
                             <div class="counter-thumb">
                                 <div class="d-flex">
-                                    <span class="counter-number" data-from="1" data-to="111" data-speed="1000"></span>
+                                    <span class="counter-number" data-from="1" data-to="{{ $total_peminat }}" data-speed="1000"></span>
 
                                 </div>
 
@@ -183,7 +183,7 @@
 
                             <div class="counter-thumb mt-4">
                                 <div class="d-flex">
-                                    <span class="counter-number" data-from="1" data-to="120" data-speed="1000"></span>
+                                    <span class="counter-number" data-from="1" data-to="{{ number_format($persentase['snmptn'], 2) }}" data-speed="1000"></span>
                                     <span class="counter-number-text">%</span>
                                 </div>
 
@@ -191,7 +191,7 @@
                             </div>
                             <div class="counter-thumb mt-4">
                                 <div class="d-flex">
-                                    <span class="counter-number" data-from="1" data-to="120" data-speed="1000"></span>
+                                    <span class="counter-number" data-from="1" data-to="{{ number_format($persentase['sbnptn'], 2) }}" data-speed="1000"></span>
                                     <span class="counter-number-text">%</span>
                                 </div>
 
@@ -200,7 +200,7 @@
 
                             <div class="counter-thumb mt-4">
                                 <div class="d-flex">
-                                    <span class="counter-number" data-from="1" data-to="120" data-speed="1000"></span>
+                                    <span class="counter-number" data-from="1" data-to="{{ number_format($persentase['mandiri'], 2) }}" data-speed="1000"></span>
                                     <span class="counter-number-text">%</span>
                                 </div>
 
@@ -232,10 +232,7 @@
                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
                     role="tab" aria-controls="profile" aria-selected="false">Kecerdasan Buatan</button>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
-                    role="tab" aria-controls="contact" aria-selected="false">Rekayasa Perangkat Lunak</button>
-            </li>
+
         </ul>
 
         <div class="tab-content " id="myTabContent">
@@ -282,28 +279,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="row">
-                    <h2 class="mb-3"></h2>
-                    <div class="col-lg-6 col-md-5 col-12">
-                        <img src="{{ asset('Landing/images/rpl.png') }}"
-                            class="about-image ms-lg-auto bg-light shadow-lg img-fluid" alt="">
-                    </div>
 
-                    <div class="col-lg-5 col-md-7 col-12">
-                        <div class="custom-text-block">
-                            <h2 class="mb-0">Rekayasa Perangkat Lunak</h2>
-
-
-                            <p>
-                                bidang minat yang mempelajari tentang strategi membangun teknologi informasi sehingga teknologi yang dihasilkan mudah
-                                diperbaruhi di kemudian hari
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
 
@@ -377,7 +353,7 @@
                 @foreach ($informasi as $item)
                 <div class="news-block ">
                     <div class="news-block-top custom-block-wrap">
-                        <a href="news-detail.html">
+                        <a href="{{route('landingpage.detailinformasi', $item->id)}}">
                             <img src=" {{ asset('gambar_informasi/' . $item->gambar) }}" style="height: 464px; width:  100%; " class="news-image img-fluid" alt="">
                         </a>
 
@@ -398,7 +374,7 @@
                         </div>
 
                         <div class="news-block-title mb-2">
-                            <h4><a href="news-detail.html" class="news-block-title-link">{{ $item->judul }}</a></h4>
+                            <h4><a href="{{route('landingpage.detailinformasi', $item->id)}}" class="news-block-title-link">{{ $item->judul }}</a></h4>
                         </div>
 
 
@@ -421,7 +397,7 @@
 
                     <div class="news-block-two-col-info">
                         <div class="news-block-title mb-2">
-                            <h6><a href="news-detail.html" class="news-block-title-link">
+                            <h6><a href="{{route('landingpage.detailkegiatan', $item->id)}}" class="news-block-title-link">
                                     {{ $item->judul }}
                                 </a>
                             </h6>
@@ -442,7 +418,7 @@
                 <div class="category-block d-flex flex-column">
                     <h2 class="mb-3">Pengumuman</h2>
                     @foreach ($pengumuman as $item)
-                    <h5><a href="#" class="category-block-link">
+                    <h5><a href="{{route('landingpage.detailinformasi', $item->id)}}" class="category-block-link">
                             {{ $item->judul }}
 
                         </a>
@@ -471,54 +447,42 @@
                 <div id="testimonial-carousel" class="carousel carousel-fade slide" data-bs-ride="carousel">
 
                     <div class="carousel-inner">
+
+                        @foreach ($alumni as $item)
+                        @if ( $loop->index ==1)
                         <div class="carousel-item active">
                             <div class="carousel-caption">
-                                <h4 class="carousel-title">Lorem Ipsum dolor sit amet, consectetur adipsicing kengan omeg kohm tokito charity theme</h4>
+                                <h4 class="carousel-title">{{ $item->testimoni }}</h4>
 
-                                <small class="carousel-name"><span class="carousel-name-title">Maria</span>, Boss</small>
+                                <small class="carousel-name"><span class="carousel-name-title">{{ $item->nama }}</span></small>
                             </div>
                         </div>
-
+                        @else
                         <div class="carousel-item">
                             <div class="carousel-caption">
-                                <h4 class="carousel-title">Sed leo nisl, posuere at molestie ac, suscipit auctor mauris quis metus tempor orci</h4>
+                                <h4 class="carousel-title">{{ $item->testimoni }}</h4>
 
-                                <small class="carousel-name"><span class="carousel-name-title">Thomas</span>, Partner</small>
+                                <small class="carousel-name"><span class="carousel-name-title">{{ $item->nama }}</span></small>
                             </div>
                         </div>
+                        @endif
+                        @endforeach
 
-                        <div class="carousel-item">
-                            <div class="carousel-caption">
-                                <h4 class="carousel-title">Lorem Ipsum dolor sit amet, consectetur adipsicing kengan omeg kohm tokito charity theme</h4>
-
-                                <small class="carousel-name"><span class="carousel-name-title">Jane</span>, Advisor</small>
-                            </div>
-                        </div>
-
-                        <div class="carousel-item">
-                            <div class="carousel-caption">
-                                <h4 class="carousel-title">Sed leo nisl, posuere at molestie ac, suscipit auctor mauris quis metus tempor orci</h4>
-
-                                <small class="carousel-name"><span class="carousel-name-title">Bob</span>, Entreprenuer</small>
-                            </div>
-                        </div>
 
                         <ol class="carousel-indicators">
-                            <li data-bs-target="#testimonial-carousel" data-bs-slide-to="0" class="active">
-                                <img src="{{ asset('Landing/images/avatar/portrait-beautiful-young-woman-standing-grey-wall.jpg') }}" class="img-fluid rounded-circle avatar-image" alt="avatar">
-                            </li>
 
-                            <li data-bs-target="#testimonial-carousel" data-bs-slide-to="1" class="">
-                                <img src="{{ asset('Landing/images/avatar/portrait-young-redhead-bearded-male.jpg') }}" class="img-fluid rounded-circle avatar-image" alt="avatar">
+                            @foreach ($alumni as $item)
+                            @if ( $loop->index ==1)
+                            <li data-bs-target="#testimonial-carousel" data-bs-slide-to="{{ $loop->index }}" class="active">
+                                <img src="{{ asset('foto_alumni/' . $item->foto) }}" class="img-fluid rounded-circle avatar-image" alt="avatar">
                             </li>
+                            @else
+                            <li data-bs-target="#testimonial-carousel" data-bs-slide-to="{{ $loop->index }}" class="">
+                                <img src="{{ asset('foto_alumni/' . $item->foto) }}" class="img-fluid rounded-circle avatar-image" alt="avatar">
+                            </li>
+                            @endif
+                            @endforeach
 
-                            <li data-bs-target="#testimonial-carousel" data-bs-slide-to="2" class="">
-                                <img src="{{ asset('Landing/images/avatar/pretty-blonde-woman-wearing-white-t-shirt.jpg') }}" class="img-fluid rounded-circle avatar-image" alt="avatar">
-                            </li>
-
-                            <li data-bs-target="#testimonial-carousel" data-bs-slide-to="3" class="">
-                                <img src="{{ asset('Landing/images/avatar/studio-portrait-emotional-happy-funny.jpg') }}" class="img-fluid rounded-circle avatar-image" alt="avatar">
-                            </li>
                         </ol>
 
                     </div>

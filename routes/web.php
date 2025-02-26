@@ -16,21 +16,31 @@ use App\Http\Controllers\admin\KontenController;
 use App\Http\Controllers\admin\MataKuliahController;
 use App\Http\Controllers\admin\WebGambarController;
 
+use App\Http\Controllers\admin\KetetatanController;
 use App\Http\Controllers\admin\ProfilController;
 use App\Http\Controllers\admin\WebTextController;
+use App\Http\Controllers\admin\DetailAlumniController;
 use App\Http\Controllers\LandingPage\HomeController;
 
+
+//Route::get('notfound', [HomeController::class, 'notfound'])->name('landingpage.notfound');
+Route::fallback(function () {
+    return response()->view('Landing.notfound', [], 404);
+});
 
 Route::get('informasi/list_berita', [HomeController::class, 'berita'])->name('landingpage.berita');
 Route::get('informasi/list_beasiswa', [HomeController::class, 'beasiswa'])->name('landingpage.beasiswa');
 Route::get('informasi/list_pengumuman', [HomeController::class, 'pengumuman'])->name('landingpage.pengumuman');
 Route::get('kemahasiswaan/list_prestasi', [HomeController::class, 'prestasi'])->name('landingpage.prestasi');
+Route::get('kemahasiswaan/list_alumni', [HomeController::class, 'alumni'])->name('landingpage.alumni');
+Route::get('kemahasiswaan/list_statistik', [HomeController::class, 'statistik'])->name('landingpage.statistik');
+
 Route::get('informasi/detailinformasi/{id}', [HomeController::class, 'detailinformasi'])->name('landingpage.detailinformasi');
 Route::get('informasi/list_kegiatan', [HomeController::class, 'kegiatan'])->name('landingpage.kegiatan');
 Route::get('informasi/detailkegiatan/{id}', [HomeController::class, 'detailkegiatan'])->name('landingpage.detailkegiatan');
 
 
-Route::get('akademik/cpl', [HomeController::class, 'listcpl'])->name('landingpage.listcpl');
+//Route::get('akademik/cpl', [HomeController::class, 'listcpl'])->name('landingpage.listcpl');
 Route::get('akademik/matakuliah', [HomeController::class, 'list_MK'])->name('landingpage.matakuliah');
 
 Route::get('profil/list_dosen', [HomeController::class, 'dosen'])->name('landingpage.dosen');
@@ -49,6 +59,9 @@ Route::get('actionlogout', [AuthController::class, 'actionlogout'])->name('actio
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/change-password', [AuthController::class, 'password'])->name('password.change');
+    Route::post('/change-password', [AuthController::class, 'passwordaction'])->name('password.update');
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     #dosen
@@ -115,10 +128,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/berkas/{id}', [BerkasController::class, 'update'])->name('berkas.update');
     Route::delete('/berkas/{id}', [BerkasController::class, 'destroy'])->name('berkas.destroy');
 
-    #tipe_berkas
+
+    #data Ketetatan
+    Route::get('ketetatan', [KetetatanController::class, 'index']);
+    Route::post('/ketetatan', [KetetatanController::class, 'store'])->name('ketetatan.store');
+    Route::delete('/ketetatan/{id}', [KetetatanController::class, 'destroy'])->name('ketetatan.destroy');
+
+    #data statistik
     Route::get('alumni', [AlumniController::class, 'index']);
     Route::post('/alumni', [AlumniController::class, 'store'])->name('alumni.store');
     Route::delete('/alumni/{id}', [AlumniController::class, 'destroy'])->name('alumni.destroy');
+
+    #Detail alumni
+    Route::get('detailalumni', [DetailAlumniController::class, 'index'])->name('detailalumni.index');
+    Route::get('tambah_detailalumni', [DetailAlumniController::class, 'create'])->name('detailalumni.create');
+    Route::post('detailalumni', [DetailAlumniController::class, 'store'])->name('detailalumni.store');
+    Route::get('/detailalumni/{id}', [DetailAlumniController::class, 'edit'])->name('detailalumni.edit');
+    Route::post('/detailalumni/{id}', [DetailAlumniController::class, 'update'])->name('detailalumni.update');
+    Route::delete('/detailalumni/{id}', [DetailAlumniController::class, 'destroy'])->name('detailalumni.destroy');
 
     #konten
     Route::get('konten', [KontenController::class, 'index'])->name('konten.index');

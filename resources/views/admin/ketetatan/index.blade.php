@@ -8,7 +8,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h1 class="m-0 font-weight-bold text-primary">Statistik Informatika</h1>
+            <h1 class="m-0 font-weight-bold text-primary">ketetatan Informatika</h1>
         </div>
         <div class="card-body">
             <button class="btn btn-primary" id="addNewItem">Tambah</button>
@@ -17,16 +17,24 @@
                     <thead>
                         <tr>
                             <th>Tahun</th>
-                            <th>Masuk</th>
-                            <th>Lulus</th>
+                            <th>Peminat SNMPTN</th>
+                            <th>Kuota SNMPTN</th>
+                            <th>Peminat SBMPTN</th>
+                            <th>Kuota SBMPTN</th>
+                            <th>Peminat Mandiri</th>
+                            <th>Kuota Mandiri</th>
                             <th width="15%" class="text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Tahun</th>
-                            <th>Masuk</th>
-                            <th>Lulus</th>
+                            <th>Peminat SNMPTN</th>
+                            <th>Kuota SNMPTN</th>
+                            <th>Peminat SBMPTN</th>
+                            <th>Kuota SBMPTN</th>
+                            <th>Peminat Mandiri</th>
+                            <th>Kuota Mandiri</th>
                             <th width="15%" class="text-right">Aksi</th>
                         </tr>
                     </tfoot>
@@ -39,7 +47,7 @@
     </div>
 </div>
 
-@extends('admin.alumni.add')
+@extends('admin.ketetatan.add')
 
 @endsection
 @section('extrajs')
@@ -57,18 +65,34 @@
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ url("/alumni") }}',
+            ajax: '{{ url("/ketetatan") }}',
             columns: [{
                     data: 'tahun',
                     name: 'tahun'
                 },
                 {
-                    data: 'juml_masuk',
-                    name: 'juml_masuk'
+                    data: 'jml_snmptn',
+                    name: 'jml_snmptn'
                 },
                 {
-                    data: 'juml_lulus',
-                    name: 'juml_lulus'
+                    data: 'kuota_snmptn',
+                    name: 'kuota_snmptn'
+                },
+                {
+                    data: 'jml_sbnptn',
+                    name: 'jml_sbnptn'
+                },
+                {
+                    data: 'kuota_sbnptn',
+                    name: 'kuota_sbnptn'
+                },
+                {
+                    data: 'jml_mandiri',
+                    name: 'jml_mandiri'
+                },
+                {
+                    data: 'kuota_mandiri',
+                    name: 'kuota_mandiri'
                 },
                 {
                     data: 'action',
@@ -90,13 +114,21 @@
             // Mengisi nilai input dengan data dari tombol yang diklik
             var itemId = $(this).data('id');
             var tahun = $(this).closest('tr').find('td:eq(0)').text(); // Mendapatkan nilai kolom pertama 
-            var juml_masuk = $(this).closest('tr').find('td:eq(1)').text();
-            var juml_lulus = $(this).closest('tr').find('td:eq(2)').text();
+            var jml_snmptn = $(this).closest('tr').find('td:eq(1)').text();
+            var kuota_snmptn = $(this).closest('tr').find('td:eq(2)').text();
+            var jml_sbnptn = $(this).closest('tr').find('td:eq(3)').text();
+            var kuota_sbnptn = $(this).closest('tr').find('td:eq(4)').text();
+            var jml_mandiri = $(this).closest('tr').find('td:eq(5)').text();
+            var kuota_mandiri = $(this).closest('tr').find('td:eq(6)').text();
             console.log(tahun)
             $('#itemId').val(itemId);
             $('#tahun').val(tahun);
-            $('#juml_masuk').val(juml_masuk);
-            $('#juml_lulus').val(juml_lulus);
+            $('#jml_snmptn').val(jml_snmptn);
+            $('#kuota_snmptn').val(kuota_snmptn);
+            $('#jml_sbnptn').val(jml_sbnptn);
+            $('#kuota_sbnptn').val(kuota_sbnptn);
+            $('#jml_mandiri').val(jml_mandiri);
+            $('#kuota_mandiri').val(kuota_mandiri);
 
 
         });
@@ -107,7 +139,7 @@
             $.ajax({
 
                 type: 'POST',
-                url: '/alumni',
+                url: '/ketetatan',
                 data: formData, // Menggunakan objek FormData untuk mengirim data formulir
                 contentType: false, // Tidak mengatur tipe konten secara otomatis
                 processData: false, // Tidak memproses data secara otomatis
@@ -123,7 +155,7 @@
             if (confirm('Are you sure you want to delete this item?')) {
                 $.ajax({
                     type: 'DELETE',
-                    url: '/alumni/' + $(this).data('id'),
+                    url: '/ketetatan/' + $(this).data('id'),
                     data: $('#itemForm').serialize(),
                     success: function(response) {
                         $('#itemModal').modal('hide');

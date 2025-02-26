@@ -33,7 +33,7 @@
             <div class="col-lg-7 col-12">
                 <div class="news-block">
                     <div class="news-block-top">
-                        <a href="news-detail.html">
+                        <a href="#">
                             <img src="{{ asset('gambar_informasi/' . $datas->gambar) }}" class="news-image img-fluid" alt="">
                         </a>
 

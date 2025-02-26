@@ -13,19 +13,19 @@
                     @csrf
                     <input type="hidden" id="itemId" name="itemId">
                     <div class="form-group">
-                        <label for="tahun">Tahun</label>
-                        <input type="number" class="form-control" id="tahun" name="tahun">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="juml_masuk">Jumlah Masuk</label>
-                        <input type="number" class="form-control" id="juml_masuk" name="juml_masuk">
+                        <label for="title">title</label>
+                        <input type="text" class="form-control" id="title" name="title">
                     </div>
                     <div class="form-group">
-                        <label for="juml_lulus">Jumlah Lulus</label>
-                        <input type="number" class="form-control" id="juml_lulus" name="juml_lulus">
+                        <label for="content">content</label>
+                        <textarea class="form-control" id="content" name="content"> </textarea>
                     </div>
-
+                    <div class="form-group">
+                        <div class="form-group" id="fileLink">
+                        </div>
+                        <label for="image">Product Image</label>
+                        <input type="file" class="form-control-file" id="image" name="image">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

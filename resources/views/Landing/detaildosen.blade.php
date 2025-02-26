@@ -42,17 +42,32 @@
                                 <strong>Bidang Minat:</strong> {{ $datas->minat }}
                             </p>
                             <ul class="social-icon mt-4">
+                                @if (!empty($datas->sinta))
                                 <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-twitter"></a>
+                                    <a href="https://sinta.kemdikbud.go.id/authors/profile/{{ $datas->sinta }}" class=" ">
+                                        <img src="{{ asset('Landing/images/avatar/favicon_sinta.png') }}" style="width: 35px; height: 35px;" class="img-fluid rounded-circle avatar-image" alt="">
+                                    </a>
                                 </li>
+                                @endif
+                                @if (!empty($datas->gscholar))
+                                <li class="social-icon-item">
+                                    <a href="https://scholar.google.com/citations?user={{ $datas->gscholar }}" class="">
+                                        <img src="{{ asset('Landing/images/avatar/scholar.png') }}" style="width: 35px; height: 35px;" class="img-fluid rounded-circle avatar-image" alt="">
+
+                                    </a>
+                                </li>
+                                @endif
+                                @if (!empty($datas->scopus))
 
                                 <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-facebook"></a>
-                                </li>
+                                    <a href="https://www.scopus.com/authid/detail.uri?authorId={{ $datas->scopus }}" class="">
+                                        <img src="{{ asset('Landing/images/avatar/scopus.png') }}" style="width: 35px; height: 35px;" class="img-fluid rounded-circle avatar-image" alt="">
 
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-instagram"></a>
+                                    </a>
                                 </li>
+                                @endif
+
+
                             </ul>
                         </div>
                     </div>

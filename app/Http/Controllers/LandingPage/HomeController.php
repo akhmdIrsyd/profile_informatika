@@ -17,19 +17,69 @@ use App\Models\Profil;
 use App\Models\Konten;
 use App\Models\Kurikulum;
 use App\Models\MataKuliah;
+use App\Models\ketetatan;
+use App\Models\detail_alumni;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\DomCrawler\Crawler;
+
+use Yajra\DataTables\Facades\DataTables;
 
 class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function notfound($menu, $submenu = null)
+    {
+        // 
+        try {
+            $menuNames = ['informasi', 'profil', 'akademik', 'kemahasiswaan', 'penelitian-dan-pengabdian'];
+            $menus = [];
+
+            foreach ($menuNames as $menuName) {
+                $menus[$menuName] = Menu::with('konten')
+                ->where('url', $menuName)
+                    ->get();
+            }
+
+
+            return view('Landing.notfound', compact('menu', 'menus'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat data: ' . $e->getMessage());
+        }
+    }
+
     public function index()
     {
         // 
         try {
+            // Ambil data tahun terbaru
+            $dataTerbaru = ketetatan::orderBy('tahun', 'desc')->first();
+
+            // Jika data kosong, set default nilai 100 untuk semua
+            if (!$dataTerbaru) {
+                $dataTerbaru = (object)[
+                    'tahun' => date('Y'),
+                    'jml_snmptn' => 100,
+                    'kuota_snmptn' => 100,
+                    'jml_sbnptn' => 100,
+                    'kuota_sbnptn' => 100,
+                    'jml_mandiri' => 100,
+                    'kuota_mandiri' => 100,
+                ];
+            }
+
+            // Hitung persentase penerimaan
+            $persentase = [
+                'snmptn' => ($dataTerbaru->kuota_snmptn / max($dataTerbaru->jml_snmptn, 1)) * 100,
+                'sbnptn' => ($dataTerbaru->kuota_sbnptn / max($dataTerbaru->jml_sbnptn, 1)) * 100,
+                'mandiri' => ($dataTerbaru->kuota_mandiri / max($dataTerbaru->jml_mandiri, 1)) * 100,
+            ];
+            // Hitung total jumlah peminat
+            $total_peminat = $dataTerbaru->jml_snmptn + $dataTerbaru->jml_sbnptn + $dataTerbaru->jml_mandiri;
+
+
             $today = now(); 
             $dosens = ProfileDosen::limit(3)->get();
             $count_dosens = ProfileDosen::count();
@@ -59,7 +109,8 @@ class HomeController extends Controller
                 ->limit(4)
                 ->get();
             $informasi = Informasi::orderBy('created_at', 'desc')->limit(1)->get();
-            return view('Landing.index', compact('totalaktif','totalLulus','professorCount','count_dosens','logomenteri','informasi','pengumuman','kegiatan','logouniv','dosens', 'slider1', 'namaprodi1', 'slider2', 'slider3', 'videoProfil', 'textwelcome', 'alamat', 'email', 'telpon'));
+            $alumni = detail_alumni::orderBy('created_at', 'desc')->limit(4)->get();
+            return view('Landing.index', compact('alumni','total_peminat','persentase','totalaktif','totalLulus','professorCount','count_dosens','logomenteri','informasi','pengumuman','kegiatan','logouniv','dosens', 'slider1', 'namaprodi1', 'slider2', 'slider3', 'videoProfil', 'textwelcome', 'alamat', 'email', 'telpon'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat data: ' . $e->getMessage());
         }
@@ -573,6 +624,97 @@ class HomeController extends Controller
 
         // Kirim data ke view
         return view('Landing.listmk', compact('dataPerSemester', 'menus', 'latestKurikulum'));
+    }
+
+    public function alumni(Request $request)
+    {
+        // 
+        
+            $menuNames = ['informasi', 'profil', 'akademik', 'kemahasiswaan', 'penelitian-dan-pengabdian'];
+            $menus = [];
+
+            foreach ($menuNames as $menuName) {
+                $menus[$menuName] = Menu::with('konten')
+                ->where('url', $menuName)
+                    ->get();
+            }
+
+            //
+            if ($request->ajax()) {
+                $data = detail_alumni::select([
+                    'id',
+                    'nim',
+                    'nama',
+                    'testimoni',
+                'foto',
+                ]);
+
+                return DataTables::of($data)
+                ->filterColumn('nama', function ($query, $keyword) {
+                    $query->where('nama', 'like', "%{$keyword}%");
+                })
+                    ->addColumn('action', function ($row) {
+                        return '
+                        <div class="row custom-block-wrap">
+                    <h2 class="mb-3"></h2>
+                    <div class="col-lg-6 col-md-5 col-12">
+                        <img src="' . asset('foto_alumni/'.$row->foto) . '" style="width: 520px; height: 320px;"
+                            class=" ms-lg-auto bg-light shadow-lg img-fluid" alt="">
+                    </div>
+
+                    <div class="col-lg-5 col-md-7 col-12">
+                        <div class="custom-text-block">
+                            <h6 class="mb-0">' . $row->nama . '</h6>
+
+
+                            <p>
+                                NIM: ' . $row->nim . '
+                            </p>
+                            <p>
+                                Testimoni: ' . $row->testimoni . '
+                            </p>
+                             </div>
+                    </div>
+                </div>
+                <hr style="border: 2px solid black;">
+                    ';
+                    })
+                    ->rawColumns([ 'action'])
+                    ->make(true);
+            }
+
+        return view('Landing.listalumni', compact('menus'));
+    }
+
+    public function statistik(Request $request)
+    {
+        // 
+        try {
+            $menuNames = ['informasi', 'profil', 'akademik', 'kemahasiswaan', 'penelitian-dan-pengabdian'];
+            $menus = [];
+
+            foreach ($menuNames as $menuName) {
+                $menus[$menuName] = Menu::with('konten')
+                ->where('url', $menuName)
+                    ->get();
+            }
+
+            $datas_alumni = alumni::orderBy('tahun', 'desc')->limit(7)->get();
+            // Ambil 7 data terbaru berdasarkan tahun
+            $datas = Ketetatan::orderBy('tahun', 'desc')->limit(7)->get();
+
+            // Hitung persentase penerimaan untuk tiap tipe di setiap tahun
+            foreach ($datas as $data) {
+                $data->persentase_snmptn  = ($data->kuota_snmptn / max($data->jml_snmptn, 1)) * 100;
+                $data->persentase_sbnptn  = ($data->kuota_sbnptn / max($data->jml_sbnptn, 1)) * 100;
+                $data->persentase_mandiri = ($data->kuota_mandiri / max($data->jml_mandiri, 1)) * 100;
+            }
+
+
+            return view('Landing.liststatistik', compact('datas_alumni','datas', 'menus'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat data: ' . $e->getMessage());
+        }
     }
 
     /**

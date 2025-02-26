@@ -31,7 +31,7 @@ class KontenController extends Controller
 
         return DataTables::of($data)
             ->addColumn('menu_nama', function ($row) {
-                return $row->menu ? $row->menu->nama : '-'; // Handle null case
+                return $row->menus ? $row->menus->nama : '-'; // Handle null case
             })
             
             ->addColumn('action', function ($row) {

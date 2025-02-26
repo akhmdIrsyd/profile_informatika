@@ -16,14 +16,31 @@
                         <label for="tahun">Tahun</label>
                         <input type="number" class="form-control" id="tahun" name="tahun">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="juml_masuk">Jumlah Masuk</label>
-                        <input type="number" class="form-control" id="juml_masuk" name="juml_masuk">
+                        <label for="jml_snmptn">Peminat SNMPTN</label>
+                        <input type="number" class="form-control" id="jml_snmptn" name="jml_snmptn">
                     </div>
                     <div class="form-group">
-                        <label for="juml_lulus">Jumlah Lulus</label>
-                        <input type="number" class="form-control" id="juml_lulus" name="juml_lulus">
+                        <label for="kuota_snmptn">Kuota SNMPTN</label>
+                        <input type="number" class="form-control" id="kuota_snmptn" name="kuota_snmptn">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jml_sbnptn">Peminat SBMPTN</label>
+                        <input type="number" class="form-control" id="jml_sbnptn" name="jml_sbnptn">
+                    </div>
+                    <div class="form-group">
+                        <label for="kuota_sbnptn">Kuota SBMPTN</label>
+                        <input type="number" class="form-control" id="kuota_sbnptn" name="kuota_sbnptn">
+                    </div>
+                    <div class="form-group">
+                        <label for="jml_mandiri">Peminat Mandiri</label>
+                        <input type="number" class="form-control" id="jml_mandiri" name="jml_mandiri">
+                    </div>
+                    <div class="form-group">
+                        <label for="kuota_mandiri">Kuota Mandiri</label>
+                        <input type="number" class="form-control" id="kuota_mandiri" name="kuota_mandiri">
                     </div>
 
                 </form>

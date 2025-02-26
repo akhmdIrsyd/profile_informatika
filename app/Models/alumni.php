@@ -8,7 +8,7 @@ class alumni extends Model
 {
     //
     protected $fillable = [
-        'jml_peminat',
+        
         'juml_masuk',
         'juml_lulus',
         'tahun',
