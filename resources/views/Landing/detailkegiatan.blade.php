@@ -23,7 +23,7 @@
                 <div class="news-block">
                     <div class="news-block-top">
                         <a href="#">
-                            <img src="{{ asset('gambar_kegiatan/' . $datas->gambar) }}"  class="news-image img-fluid" alt="">
+                            <img src="{{ asset('gambar_kegiatan/' . $datas->gambar) }}" class="news-image img-fluid" alt="">
                         </a>
 
                     </div>
@@ -46,6 +46,9 @@
                         </div>
 
                         <div class="news-block-body">
+                            {{ $datas->tanggal }}
+                            {{ $datas->waktu }}
+                            {{ $datas->tempat }}
                             {!! $datas->isi !!}
                         </div>
                     </div>

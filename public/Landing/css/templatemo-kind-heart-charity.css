@@ -932,6 +932,31 @@ blockquote::before {
   height: 150px;
 }
 
+/* Responsive Images */
+.news-block-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+/* Responsive Tables */
+.news-block-body table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.news-block-body table th,
+.news-block-body table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Responsive Iframes (e.g., YouTube videos) */
+.news-block-body iframe {
+    max-width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+}
 
 /*---------------------------------------
   TESTIMONIAL CAROUSEL              

@@ -85,7 +85,29 @@
         });
 
         // Delete item
-        $('.btn-delete').click(function() {
+        $(document).on('click', '.btn-delete', function() {
+            if (confirm('Are you sure you want to delete this item?')) {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/kegiatan/' + id,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        alert('Informasi deleted successfully');
+
+                        // Remove the row from the table
+                        table.row($('tr[data-id="' + id + '"]')).remove().draw();
+                    },
+                    error: function(response) {
+                        alert('Failed to delete the item.');
+                    }
+                });
+            }
+        });
+        $(document).on('click', '.btn-delete', function() {
             if (confirm('Are you sure you want to delete this item?')) {
                 var id = $(this).data('id');
 

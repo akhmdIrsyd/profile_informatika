@@ -232,6 +232,10 @@
                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
                     role="tab" aria-controls="profile" aria-selected="false">Kecerdasan Buatan</button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="rpl-tab" data-bs-toggle="tab" data-bs-target="#rpl" type="button"
+                    role="tab" aria-controls="rpl" aria-selected="false">Rekayasa Perangkat Lunak</button>
+            </li>
 
         </ul>
 
@@ -273,6 +277,27 @@
 
 
                             <p>bidang minat yang mempelajari tentang aritmatika dan logika untuk membentuk algoritma pemecahan masalah.</p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="rpl" role="tabpanel" aria-labelledby="rpl-tab">
+                <div class="row">
+                    <h2 class="mb-3"></h2>
+                    <div class="col-lg-6 col-md-5 col-12">
+                        <img src="{{ asset('Landing/images/rpl.png') }}"
+                            class="about-image ms-lg-auto bg-light shadow-lg img-fluid" alt="">
+                    </div>
+
+                    <div class="col-lg-5 col-md-7 col-12">
+                        <div class="custom-text-block">
+                            <h2 class="mb-0">Rekayasa Perangkat Lunak</h2>
+
+
+                            <p>bidang minat yang mempelajari tentang strategi membangun teknologi informasi sehingga teknologi yang dihasilkan mudah diperbaruhi di kemudian hari.</p>
 
 
                         </div>

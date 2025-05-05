@@ -16,7 +16,7 @@
 </section>
 
 <section class="news-section section-padding">
-    <div class="container">
+    <div class="container ">
         <div class="row">
 
             <div class="col-lg-7 col-12">
@@ -26,8 +26,8 @@
                     <div class="news-block-info">
 
 
-                        <div class="news-block-title mb-2">
-                            <h1><a href="#" class="news-block-title-link"> {{ $konten->judul }}</a></h1>
+                        <div class="news-block-title mb-2 ">
+                            <h1><a href="#" class="news-block-title-link "> {{ $konten->judul }}</a></h1>
                         </div>
 
                         <div class="news-block-body">

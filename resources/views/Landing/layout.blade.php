@@ -16,7 +16,17 @@
     <link href="{{ asset('Landing/css/bootstrap-icons.css') }}" rel="stylesheet">
 
     <link href="{{ asset('Landing/css/templatemo-kind-heart-charity.css') }}" rel="stylesheet">
-
+    <style>
+        .news-detail-header-section {
+            background-image: url("{{ asset('Landing/images/news/gedung.png') }}");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            padding-top: 150px;
+            padding-bottom: 150px;
+        }
+    </style>
 
     <!--
 
